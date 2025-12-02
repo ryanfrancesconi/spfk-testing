@@ -1,6 +1,6 @@
 import Foundation
 
-public class BundleResources: @unchecked Sendable {
+public final class BundleResources: Sendable {
     public let bundleURL: URL
 
     // Bundle.module.bundleURL
@@ -14,7 +14,7 @@ public class BundleResources: @unchecked Sendable {
                 .appendingPathComponent("Contents")
                 .appendingPathComponent("Resources")
         }
-    
+
     #elseif os(iOS)
         public var resourcesDirectory: URL {
             bundleURL
