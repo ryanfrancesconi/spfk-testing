@@ -21,7 +21,10 @@ let package = Package(
         .target(
             name: "SPFKTesting",
             dependencies: [],
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
+            linkerSettings: [
+                // .linkedFramework("Testing"),
+            ],
         ),
 
         .testTarget(
