@@ -16,13 +16,11 @@ let package = Package(
             ]
         ),
     ],
-    dependencies: [
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "SPFKTesting",
-            dependencies: [
-            ]
+            dependencies: []
         ),
 
         .testTarget(
