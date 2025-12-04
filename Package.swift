@@ -5,9 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "spfk-testing",
-    platforms: [
-        .macOS(.v12),
-    ],
+    platforms: [.macOS(.v12),],
     products: [
         .library(
             name: "SPFKTesting",
@@ -22,9 +20,6 @@ let package = Package(
             name: "SPFKTesting",
             dependencies: [],
             resources: [.process("Resources")],
-            linkerSettings: [
-                // .linkedFramework("Testing"),
-            ],
         ),
 
         .testTarget(
