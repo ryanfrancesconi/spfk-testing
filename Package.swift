@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SPFKTesting",
+    name: "spfk-testing",
     platforms: [
         .macOS(.v12),
     ],
