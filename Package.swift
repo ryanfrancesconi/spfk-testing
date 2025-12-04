@@ -14,7 +14,9 @@ let package = Package(
             ]
         ),
     ],
-    dependencies: [],
+    dependencies: [
+        
+    ],
     targets: [
         .target(
             name: "SPFKTesting",
