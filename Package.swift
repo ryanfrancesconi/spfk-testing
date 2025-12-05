@@ -9,25 +9,20 @@ let package = Package(
     products: [
         .library(
             name: "SPFKTesting",
-            targets: [
-                "SPFKTesting",
-            ]
+            targets: ["SPFKTesting",]
         ),
     ],
-    dependencies: [
-        
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "SPFKTesting",
             dependencies: [],
             resources: [.process("Resources")],
         ),
-
         .testTarget(
             name: "SPFKTestingTests",
             dependencies: [
-                "SPFKTesting",
+                .targetItem(name: "SPFKTesting", condition: nil),
             ]
         ),
     ]
