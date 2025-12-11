@@ -23,6 +23,18 @@ extension TestBundleResources {
     public var formats: [URL] { [
         tabla_aac,
         tabla_aif,
+        tabla_caf,
+        tabla_flac,
+        tabla_m4a,
+        tabla_mp3,
+        tabla_mp4,
+        tabla_ogg,
+        tabla_wav,
+    ] }
+
+    /// format files which support either RIFF or Chapter markers
+    public var markerFormats: [URL] { [
+        tabla_aif,
         tabla_flac,
         tabla_m4a,
         tabla_mp3,
