@@ -32,7 +32,7 @@ extension TestBundleResources {
         tabla_wav,
     ] }
 
-    /// format files which support either RIFF or Chapter markers
+    /// format files which support either RIFF or Chapter markers and other metadata
     public var markerFormats: [URL] { [
         tabla_aif,
         tabla_flac,
