@@ -126,6 +126,10 @@ extension TestBundleResources {
     public var no_data_chunk: URL {
         internalResources.resource(named: "no_data_chunk.wav")
     }
+
+    public var ixml_chunk: URL {
+        internalResources.resource(named: "usesEntireiXMLSpec.wav")
+    }
 }
 
 // MARK: - Images
