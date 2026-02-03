@@ -119,6 +119,10 @@ extension TestBundleResources {
         internalResources.resource(named: "cowbell.wav")
     }
 
+    public var cowbell_bext_wav: URL {
+        internalResources.resource(named: "cowbell_bext.wav")
+    }
+
     public var pink_noise: URL {
         internalResources.resource(named: "pink_noise.wav")
     }
