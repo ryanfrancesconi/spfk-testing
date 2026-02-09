@@ -17,7 +17,7 @@ public final class TestBundleResources: Sendable {
 
 extension TestBundleResources {
     public var audioCases: [URL] { [
-        mp3_id3, wav_bext_v2, tabla_mp4, tabla_wav, tabla_6_channel, cowbell_wav, pink_noise,
+        mp3_id3, wav_bext_v1, wav_bext_v2, tabla_mp4, tabla_wav, tabla_6_channel, cowbell_wav, pink_noise,
     ] }
 
     public var formats: [URL] { [
