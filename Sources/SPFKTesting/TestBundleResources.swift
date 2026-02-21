@@ -134,6 +134,11 @@ extension TestBundleResources {
     public var ixml_chunk: URL {
         internalResources.resource(named: "usesEntireiXMLSpec.wav")
     }
+
+    public var addAudio: URL {
+        // is m4a internally
+        internalResources.resource(named: "boom.addAudio")
+    }
 }
 
 // MARK: - Images
