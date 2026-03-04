@@ -141,6 +141,76 @@ extension TestBundleResources {
     }
 }
 
+// MARK: - Musical Key Audio
+
+extension TestBundleResources {
+    public var key_a_major: URL {
+        internalResources.resource(named: "a_major.mp3")
+    }
+
+    public var key_asharp_major: URL {
+        internalResources.resource(named: "asharp_major.mp3")
+    }
+
+    public var key_b_major: URL {
+        internalResources.resource(named: "b_major.mp3")
+    }
+
+    public var key_c_major: URL {
+        internalResources.resource(named: "c_major.mp3")
+    }
+
+    public var key_csharp_major: URL {
+        internalResources.resource(named: "csharp_major.mp3")
+    }
+
+    public var key_d_major: URL {
+        internalResources.resource(named: "d_major.mp3")
+    }
+
+    public var key_dsharp_major: URL {
+        internalResources.resource(named: "dsharp_major.mp3")
+    }
+
+    public var key_e_major: URL {
+        internalResources.resource(named: "e_major.mp3")
+    }
+
+    public var key_f_major: URL {
+        internalResources.resource(named: "f_major.mp3")
+    }
+
+    public var key_fsharp_major: URL {
+        internalResources.resource(named: "fsharp_major.mp3")
+    }
+
+    public var key_g_major: URL {
+        internalResources.resource(named: "g_major.mp3")
+    }
+
+    public var key_gsharp_major: URL {
+        internalResources.resource(named: "gsharp_major.mp3")
+    }
+
+    /// All 12 major key audio files for testing musical key detection.
+    public var majorKeyAudioFiles: [(note: String, url: URL)] {
+        [
+            ("C", key_c_major),
+            ("C#", key_csharp_major),
+            ("D", key_d_major),
+            ("D#", key_dsharp_major),
+            ("E", key_e_major),
+            ("F", key_f_major),
+            ("F#", key_fsharp_major),
+            ("G", key_g_major),
+            ("G#", key_gsharp_major),
+            ("A", key_a_major),
+            ("A#", key_asharp_major),
+            ("B", key_b_major),
+        ]
+    }
+}
+
 // MARK: - Images
 
 extension TestBundleResources {
