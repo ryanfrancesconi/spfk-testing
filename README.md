@@ -69,7 +69,7 @@ func displayLinkTiming() { ... }
 | `and-oh-how-they-danced.mp3` | ID3 metadata |
 | `and-oh-how-they-danced.wav` | BEXT v2 metadata |
 | `and-oh-how-they-danced_2.wav` | BEXT v2 variant |
-| `123456789_60BPM_48k.wav` | BEXT v1, tempo reference |
+| `123456789bpm60_48k.wav` | BEXT v1, tempo reference |
 | `cowbell.wav` | General audio |
 | `cowbell_bext.wav` | BEXT metadata |
 | `pink_noise.wav` | Signal processing reference |

@@ -72,7 +72,7 @@ struct TestBundleResourcesTests {
     @Test("all audioCases resources resolve to expected file names")
     func allAudioCasesNames() {
         let expectedNames: Set = [
-            "and-oh-how-they-danced.mp3", "123456789_60BPM_48k.wav",
+            "and-oh-how-they-danced.mp3", "123456789bpm60_48k.wav",
             "and-oh-how-they-danced.wav", "tabla.mp4", "tabla.wav",
             "tabla_6_channel.wav", "cowbell.wav", "pink_noise.wav",
         ]
@@ -109,12 +109,12 @@ struct TestBundleResourcesTests {
 
     @Test("wav_bext_v1 resolves to correct file name")
     func wavBextV1() {
-        #expect(resources.wav_bext_v1.lastPathComponent == "123456789_60BPM_48k.wav")
+        #expect(resources.wav_bext_v1.lastPathComponent == "123456789bpm60_48k.wav")
     }
 
-    @Test("counting_123456789_60BPM_48k is alias for wav_bext_v1")
+    @Test("counting_123456789bpm60_48k is alias for wav_bext_v1")
     func countingAlias() {
-        #expect(resources.counting_123456789_60BPM_48k == resources.wav_bext_v1)
+        #expect(resources.counting_123456789bpm60_48k == resources.wav_bext_v1)
     }
 
     @Test("wav_bext_v2 resolves to correct file name")
