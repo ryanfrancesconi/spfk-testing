@@ -1,5 +1,8 @@
 # SPFKTesting
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fryanfrancesconi%2Fspfk-testing%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ryanfrancesconi/spfk-testing)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fryanfrancesconi%2Fspfk-testing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ryanfrancesconi/spfk-testing)
+
 A Swift package providing shared test resources and utilities for all SPFK test targets. Bundles a catalog of audio and image files used across the SPFK ecosystem, with platform-aware resource resolution for macOS and iOS.
 
 ## Overview
