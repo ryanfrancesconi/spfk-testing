@@ -132,7 +132,7 @@ extension TestBundleResources {
     }
 
     public var ixml_chunk: URL {
-        internalResources.resource(named: "usesEntireiXMLSpec.wav")
+        internalResources.resource(named: "ixml.wav")
     }
 
     public var addAudio: URL {

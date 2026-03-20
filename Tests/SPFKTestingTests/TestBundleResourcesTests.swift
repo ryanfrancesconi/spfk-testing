@@ -133,7 +133,7 @@ struct TestBundleResourcesTests {
 
     @Test("ixml_chunk resolves to correct file name")
     func ixmlChunk() {
-        #expect(resources.ixml_chunk.lastPathComponent == "usesEntireiXMLSpec.wav")
+        #expect(resources.ixml_chunk.lastPathComponent == "ixml.wav")
     }
 
     @Test("addAudio resolves to correct file name")
