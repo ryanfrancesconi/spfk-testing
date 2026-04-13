@@ -43,6 +43,10 @@ extension TestBundleResources {
         tabla_wav,
     ] }
 
+    public var ituns_mpb_m4a: URL {
+        internalResources.resource(named: "ITUNSMPB.m4a")
+    }
+
     public var mp3_no_metadata: URL {
         internalResources.resource(named: "no metadata.mp3")
     }
