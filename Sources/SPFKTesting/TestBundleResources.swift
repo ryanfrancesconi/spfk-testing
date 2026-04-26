@@ -91,6 +91,12 @@ extension TestBundleResources {
         internalResources.resource(named: "tabla.flac")
     }
 
+    /// FLAC with BEXT and iXML APPLICATION blocks authored by metaflac (not our bridge).
+    /// Used to verify that externally-produced APPLICATION blocks are read correctly.
+    public var flac_bext_ixml_external: URL {
+        internalResources.resource(named: "bext_ixml_external.flac")
+    }
+
     public var tabla_ogg: URL {
         internalResources.resource(named: "tabla.ogg")
     }
