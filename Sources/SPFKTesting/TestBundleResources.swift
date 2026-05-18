@@ -20,17 +20,13 @@ extension TestBundleResources {
         mp3_id3, wav_bext_v1, wav_bext_v2, tabla_mp4, tabla_wav, tabla_6_channel, cowbell_wav, pink_noise,
     ] }
 
-    public var formats: [URL] { [
-        tabla_aac,
-        tabla_aif,
-        tabla_caf,
-        tabla_flac,
-        tabla_m4a,
-        tabla_mp3,
-        tabla_mp4,
-        tabla_ogg,
-        tabla_wav,
-    ] }
+    public var formats: [URL] {
+        var result = [tabla_aac, tabla_aif, tabla_caf, tabla_flac, tabla_m4a, tabla_mp3, tabla_mp4, tabla_wav]
+        #if os(macOS)
+            result.append(tabla_ogg)
+        #endif
+        return result
+    }
 
     /// format files which support either RIFF or Chapter markers and other metadata
     public var markerFormats: [URL] { [
@@ -39,7 +35,7 @@ extension TestBundleResources {
         tabla_m4a,
         tabla_mp3,
         tabla_mp4,
-        // tabla_ogg, // ogg isn't parsing on iOS
+        // tabla_ogg, // ogg isn't on iOS
         tabla_wav,
     ] }
 
