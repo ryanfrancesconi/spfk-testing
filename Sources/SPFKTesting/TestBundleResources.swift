@@ -215,6 +215,13 @@ extension TestBundleResources {
             ("B", key_b_major),
         ]
     }
+
+    /// FLAC with artwork stored in a METADATA_BLOCK_PICTURE Vorbis comment entry
+    /// and no native FLAC PICTURE block. Used to test XiphComment read fallback
+    /// and migration to native PICTURE blocks.
+    public var tabla_legacy_picture_flac: URL {
+        internalResources.resource(named: "tabla_legacy_picture.flac")
+    }
 }
 
 // MARK: - Images
@@ -222,5 +229,15 @@ extension TestBundleResources {
 extension TestBundleResources {
     public var sharksandwich: URL {
         internalResources.resource(named: "sharksandwich.jpg")
+    }
+
+    /// HEIC version of sharksandwich, for testing non-JPEG/PNG artwork decode.
+    public var sharksandwich_heic: URL {
+        internalResources.resource(named: "sharksandwich.heic")
+    }
+
+    /// WebP version of sharksandwich, for testing non-JPEG/PNG artwork decode.
+    public var sharksandwich_webp: URL {
+        internalResources.resource(named: "sharksandwich.webp")
     }
 }
