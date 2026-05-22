@@ -29,15 +29,18 @@ extension TestBundleResources {
     }
 
     /// format files which support either RIFF or Chapter markers and other metadata
-    public var markerFormats: [URL] { [
-        tabla_aif,
-        tabla_flac,
-        tabla_m4a,
-        tabla_mp3,
-        tabla_mp4,
-        // tabla_ogg, // ogg isn't on iOS
-        tabla_wav,
-    ] }
+    public var markerFormats: [URL] {
+        var result = [tabla_aif,
+                      tabla_flac,
+                      tabla_m4a,
+                      tabla_mp3,
+                      tabla_mp4,
+                      tabla_wav]
+        #if os(macOS)
+            result.append(tabla_ogg)
+        #endif
+        return result
+    }
 
     public var ituns_mpb_m4a: URL {
         internalResources.resource(named: "ITUNSMPB.m4a")
@@ -144,6 +147,40 @@ extension TestBundleResources {
     public var addAudio: URL {
         // is m4a internally
         internalResources.resource(named: "boom.addAudio")
+    }
+}
+
+extension TestBundleResources {
+    // MARK: - Pre-rated fixtures (rating=80 embedded by external tooling)
+
+    /// WAV with ID3v2 POPM frame (WMP email, byte=196 = 4 stars = normalized 80).
+    public var rated_80_wav: URL {
+        internalResources.resource(named: "rated_80.wav")
+    }
+
+    /// MP3 with ID3v2 POPM frame (WMP email, byte=196 = 4 stars = normalized 80).
+    public var rated_80_mp3: URL {
+        internalResources.resource(named: "rated_80.mp3")
+    }
+
+    /// FLAC with Xiph RATING=80 and FMPS_RATING=0.800.
+    public var rated_80_flac: URL {
+        internalResources.resource(named: "rated_80.flac")
+    }
+
+    /// M4A with freeform ----:com.apple.iTunes:RATING atom = "80".
+    public var rated_80_m4a: URL {
+        internalResources.resource(named: "rated_80.m4a")
+    }
+
+    /// OGG Vorbis with Xiph RATING=80 and FMPS_RATING=0.800.
+    public var rated_80_ogg: URL {
+        internalResources.resource(named: "rated_80.ogg")
+    }
+
+    /// AIFF with ID3v2 POPM frame (WMP email, byte=196 = 4 stars = normalized 80).
+    public var rated_80_aif: URL {
+        internalResources.resource(named: "rated_80.aif")
     }
 }
 

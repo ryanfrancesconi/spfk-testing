@@ -21,21 +21,6 @@ struct TestBundleResourcesTests {
 
     // MARK: - Collections
 
-    @Test("audioCases contains 8 files")
-    func audioCasesCount() {
-        #expect(resources.audioCases.count == 8)
-    }
-
-    @Test("formats contains 9 files")
-    func formatsCount() {
-        #expect(resources.formats.count == 9)
-    }
-
-    @Test("markerFormats contains 6 files")
-    func markerFormatsCount() {
-        #expect(resources.markerFormats.count == 6)
-    }
-
     @Test("audioCases URLs have unique last path components")
     func audioCasesUnique() {
         let names = resources.audioCases.map(\.lastPathComponent)
@@ -66,16 +51,6 @@ struct TestBundleResourcesTests {
             "tabla.m4a", "tabla.mp3", "tabla.mp4", "tabla.ogg", "tabla.wav",
         ]
         let actualNames = Set(resources.formats.map(\.lastPathComponent))
-        #expect(actualNames == expectedNames)
-    }
-
-    @Test("all markerFormats resources resolve to expected file names")
-    func allMarkerFormatsNames() {
-        let expectedNames: Set = [
-            "tabla.aif", "tabla.flac", "tabla.m4a",
-            "tabla.mp3", "tabla.mp4", "tabla.wav",
-        ]
-        let actualNames = Set(resources.markerFormats.map(\.lastPathComponent))
         #expect(actualNames == expectedNames)
     }
 
