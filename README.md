@@ -116,8 +116,8 @@ Add SPFKTesting as a dependency in your test target only:
 
 ## Requirements
 
-- **Swift** 6.2+
-- **macOS** 13+
+- **Platforms:** macOS 13+
+- **Swift:** 6.2+
 
 ## About
 
