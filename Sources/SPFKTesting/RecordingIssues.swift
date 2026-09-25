@@ -7,6 +7,7 @@ import Testing
 ///
 /// For async cleanup in a `defer`, whose body cannot throw: `defer { await recordingIssues { try await store.close() } }`.
 public func recordingIssues(
+    isolation: isolated (any Actor)? = #isolation,
     sourceLocation: SourceLocation = #_sourceLocation,
     _ body: () async throws -> Void
 ) async {
