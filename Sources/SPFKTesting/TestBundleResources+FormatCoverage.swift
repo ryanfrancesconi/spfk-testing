@@ -20,6 +20,10 @@ extension TestBundleResources {
     public var sine_m4v: URL { internalResources.resource(named: "sine.m4v") }
     /// MPEG transport stream, H.264 64x64 plus AAC.
     public var sine_ts: URL { internalResources.resource(named: "sine.ts") }
+    /// WavPack (`-c:a wavpack`). Not an `AudioFileType`, so not in ``oneFilePerContainer``.
+    public var sine_wv: URL { internalResources.resource(named: "sine.wv") }
+    /// ASF with WMA v2 (`-c:a wmav2`). Not an `AudioFileType`, so not in ``oneFilePerContainer``.
+    public var sine_wma: URL { internalResources.resource(named: "sine.wma") }
 
     /// One fixture for every container extension, for tests that pin a per-format capability
     /// against the code that implements it.
