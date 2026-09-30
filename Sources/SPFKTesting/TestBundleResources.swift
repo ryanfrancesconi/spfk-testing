@@ -189,6 +189,18 @@ extension TestBundleResources {
         internalResources.resource(named: "tabla_pcm.mka")
     }
 
+    /// ``tabla_wav`` in Matroska PCM with blocks of 66,666 frames, where ``tabla_pcm_mka``'s are
+    /// 4,096 — longer than one decode buffer:
+    ///
+    ///     ffmpeg -max_size 400000 -i tabla.wav -c:a copy \
+    ///       -metadata title="SPFK Tabla Matroska PCM long blocks" -metadata artist="Spongefork" \
+    ///       tabla_pcm_long_blocks.mka
+    ///
+    /// `-max_size` is the WAV demuxer's packet size, so it goes before `-i`.
+    public var tabla_pcm_long_blocks_mka: URL {
+        internalResources.resource(named: "tabla_pcm_long_blocks.mka")
+    }
+
     public var tabla_6_channel: URL {
         internalResources.resource(named: "tabla_6_channel.wav")
     }
