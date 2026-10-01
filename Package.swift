@@ -11,6 +11,10 @@ let package = Package(
             name: "SPFKTesting",
             targets: ["SPFKTesting",]
         ),
+        .library(
+            name: "SPFKBench",
+            targets: ["SPFKBench",]
+        ),
     ],
     dependencies: [],
     targets: [
@@ -19,10 +23,15 @@ let package = Package(
             dependencies: [],
             resources: [.process("Resources")],
         ),
+        .target(
+            name: "SPFKBench",
+            dependencies: []
+        ),
         .testTarget(
             name: "SPFKTestingTests",
             dependencies: [
                 .targetItem(name: "SPFKTesting", condition: nil),
+                .targetItem(name: "SPFKBench", condition: nil),
             ]
         ),
     ]
