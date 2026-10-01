@@ -58,5 +58,10 @@ extension Tag {
     /// write-then-load order, pruning at load, and each product's revisit, relaunch and Clear.
     @Tag public static var searchResults: Self
 
+    /// The metadata safety net: every metadata save, checked against readers that share no code
+    /// with the writers — what it wrote, the components it left alone, and other apps' data in
+    /// the file — plus those readers' own tests.
+    @Tag public static var metadataSafetyNet: Self
+
     @Tag public static var automation: Self
 }
