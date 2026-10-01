@@ -54,5 +54,9 @@ extension Tag {
     /// the shared command's step order, its dialog, and each product's arrival selection.
     @Tag public static var showInPlaylists: Self
 
+    /// Search Results as a stored playlist: the store's wholesale replace, the shared host's
+    /// write-then-load order, pruning at load, and each product's revisit, relaunch and Clear.
+    @Tag public static var searchResults: Self
+
     @Tag public static var automation: Self
 }
