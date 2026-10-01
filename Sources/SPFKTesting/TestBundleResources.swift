@@ -365,6 +365,18 @@ extension TestBundleResources {
         internalResources.resource(named: "sample.mov")
     }
 
+    /// ``sample_mov`` remuxed with QuickTime user data text items in `moov/udta`:
+    ///
+    ///     ffmpeg -i sample.mov -c copy -metadata title="QT Title" -metadata artist="QT Artist" \
+    ///       -metadata copyright="QT Copy" -f mov qtmeta.mov
+    ///
+    /// Carries `©nam`, `©ART`, `©cpy` and `©swr`, and no XMP. These are the items a movie written
+    /// by QuickTime Player, Final Cut or ffmpeg holds its descriptive metadata in, unlike an iPhone
+    /// original, which keeps it in `moov/meta`.
+    public var qtmeta_mov: URL {
+        internalResources.resource(named: "qtmeta.mov")
+    }
+
     /// The same content as ``sample_mov``, remuxed into a Matroska container:
     ///
     ///     ffmpeg -i sample.mov -c copy \
