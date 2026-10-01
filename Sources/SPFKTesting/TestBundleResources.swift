@@ -118,6 +118,17 @@ extension TestBundleResources {
         internalResources.resource(named: "tabla.m4a")
     }
 
+    /// ``tabla_m4a`` remuxed with an ISO `moov/udta/cprt` box, language `eng`, and no other tags:
+    ///
+    ///     ffmpeg -i tabla.m4a -c copy -map_metadata -1 -metadata copyright="ISO Copy" \
+    ///       -f 3gp tabla_cprt.m4a
+    ///
+    /// The 3GP muxer is the one ffmpeg writes `cprt` from; the MP4 muxer writes an iTunes `ilst`
+    /// item instead.
+    public var tabla_cprt_m4a: URL {
+        internalResources.resource(named: "tabla_cprt.m4a")
+    }
+
     /// ``tabla_m4a``'s AAC remuxed into Matroska, bit-identical:
     ///
     ///     ffmpeg -i tabla.m4a -c:a copy \
@@ -375,6 +386,24 @@ extension TestBundleResources {
     /// original, which keeps it in `moov/meta`.
     public var qtmeta_mov: URL {
         internalResources.resource(named: "qtmeta.mov")
+    }
+
+    /// ``sample_mov``'s video re-encoded into AVI, with no audio:
+    ///
+    ///     ffmpeg -i sample.mov -c:v mpeg4 -q:v 8 -an -metadata title="AVI Title" sample.avi
+    ///
+    /// The title is a RIFF `LIST/INFO` `INAM` item.
+    public var sample_avi: URL {
+        internalResources.resource(named: "sample.avi")
+    }
+
+    /// ``sample_mov``'s video re-encoded into Windows Media, with no audio:
+    ///
+    ///     ffmpeg -i sample.mov -c:v wmv2 -q:v 8 -an -metadata title="WMV Title" sample.wmv
+    ///
+    /// The title is in the ASF Content Description object, as UTF-16LE.
+    public var sample_wmv: URL {
+        internalResources.resource(named: "sample.wmv")
     }
 
     /// The same content as ``sample_mov``, remuxed into a Matroska container:
