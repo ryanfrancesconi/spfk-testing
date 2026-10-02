@@ -58,29 +58,9 @@ public enum IFFChunks {
 
 /// The ID3v2 tag at the start of a file, read without any metadata library.
 public enum ID3v2Frames {
-    /// Every frame, in tag order, with its body.
+    /// Every frame, in tag order, with its body. Throws where ``tag(in:)`` refuses the tag.
     public static func frames(in url: URL) throws -> [(id: String, body: Data)] {
-        let data = try Data(contentsOf: url)
-        guard data.count >= 10, data.starts(with: Data("ID3".utf8)) else { return [] }
-
-        let version = data[3]
-        let tagEnd = min(10 + syncsafe(data, at: 6), data.count)
-        var frames: [(id: String, body: Data)] = []
-        var offset = 10
-
-        while offset + 10 <= tagEnd {
-            let id = String(decoding: data[offset ..< offset + 4], as: UTF8.self)
-            guard id.first?.isLetter == true || id.first?.isNumber == true else { break }
-
-            let size = version >= 4 ? syncsafe(data, at: offset + 4) : bigEndian(data, at: offset + 4)
-            let body = offset + 10
-            guard body + size <= data.count else { break }
-
-            frames.append((id, Data(data[body ..< body + size])))
-            offset = body + size
-        }
-
-        return frames
+        try frames(in: Data(contentsOf: url))
     }
 
     /// The packet in the `PRIV` frame owned by `XMP`.
@@ -96,14 +76,6 @@ public enum ID3v2Frames {
     public static func hasID3v1(in url: URL) throws -> Bool {
         let data = try Data(contentsOf: url)
         return data.count >= 128 && data.suffix(128).starts(with: Data("TAG".utf8))
-    }
-
-    private static func syncsafe(_ data: Data, at offset: Int) -> Int {
-        (0 ..< 4).reduce(0) { $0 << 7 | Int(data[offset + $1] & 0x7F) }
-    }
-
-    private static func bigEndian(_ data: Data, at offset: Int) -> Int {
-        (0 ..< 4).reduce(0) { $0 << 8 | Int(data[offset + $1]) }
     }
 }
 
