@@ -5,14 +5,16 @@ import Foundation
 /// A little-endian RIFF file's chunks, read without any metadata library: the top-level list,
 /// `LIST` sub-chunks, `INFO` items, `cue ` points, `adtl` labels and the `bext` fixed layout.
 ///
-/// Refuses RF64 and BW64, whose 64-bit sizes live in `ds64`, rather than misreading them.
+/// Reads RF64 and BW64 too: their `data` chunk's size is the `0xFFFFFFFF` sentinel, and the real
+/// one is taken from the `ds64` chunk that must come first.
 public struct RIFFChunks: Equatable, Sendable {
     public enum ReadError: Error, Equatable {
         case notRIFF
-        /// RF64 and BW64 carry their sizes in `ds64`, which this reader does not read.
-        case unsupportedForm(String)
         case malformed(String)
     }
+
+    /// The 32-bit size a long-form file stores where the real size lives in `ds64`.
+    public static let longFormSizeSentinel: UInt32 = 0xFFFF_FFFF
 
     /// One chunk: its four-character ID and its payload, without the pad byte.
     public struct Chunk: Equatable, Sendable {
@@ -37,7 +39,9 @@ public struct RIFFChunks: Equatable, Sendable {
         }
     }
 
-    /// The form type after `RIFF`'s size: `WAVE`, `AVI `.
+    /// The leading magic: `RIFF`, or the long forms `RF64` and `BW64`.
+    public let form: String
+    /// The form type after the magic's size: `WAVE`, `AVI `.
     public let formType: String
     /// The top-level chunks, in file order.
     public let chunks: [Chunk]
@@ -45,12 +49,33 @@ public struct RIFFChunks: Equatable, Sendable {
     public init(_ data: Data) throws {
         guard data.count >= 12 else { throw ReadError.notRIFF }
 
-        let magic = Self.fourCC(data.prefix(4))
-        if magic == "RF64" || magic == "BW64" { throw ReadError.unsupportedForm(magic) }
-        guard magic == "RIFF" else { throw ReadError.notRIFF }
+        form = Self.fourCC(data.prefix(4))
+        guard ["RIFF", "RF64", "BW64"].contains(form) else { throw ReadError.notRIFF }
 
         formType = Self.fourCC(data.dropFirst(8).prefix(4))
-        chunks = try Self.chunks(in: Data(data.dropFirst(12)))
+        let body = Data(data.dropFirst(12))
+
+        guard form != "RIFF" else {
+            chunks = try Self.chunks(in: body)
+            return
+        }
+
+        guard body.count >= 36, Self.fourCC(body.prefix(4)) == "ds64", Self.uint32(body, at: 4) >= 28 else {
+            throw ReadError.malformed("\(form) without a leading ds64")
+        }
+
+        chunks = try Self.chunks(in: body, dataSize: Self.uint64(body, at: 16))
+    }
+
+    /// RF64 or BW64.
+    public var isLongForm: Bool {
+        form != "RIFF"
+    }
+
+    /// The `ds64` chunk's RIFF size, `data` size and sample count; nil for a `RIFF` file.
+    public var longFormSizes: (riffSize: UInt64, dataSize: UInt64, sampleCount: UInt64)? {
+        guard isLongForm, let ds64 = first("ds64"), ds64.payload.count >= 24 else { return nil }
+        return (Self.uint64(ds64.payload, at: 0), Self.uint64(ds64.payload, at: 8), Self.uint64(ds64.payload, at: 16))
     }
 
     public init(contentsOf url: URL) throws {
@@ -135,14 +160,16 @@ public struct RIFFChunks: Equatable, Sendable {
 
     // MARK: - Helpers
 
-    /// Stops at a chunk that overruns `data`.
-    static func chunks(in data: Data) throws -> [Chunk] {
+    /// Throws at a chunk that overruns `data`. `dataSize` stands in for a `data` chunk whose stored
+    /// size is ``longFormSizeSentinel``.
+    static func chunks(in data: Data, dataSize: UInt64? = nil) throws -> [Chunk] {
         var chunks: [Chunk] = []
         var offset = 0
 
         while offset + 8 <= data.count {
             let id = fourCC(data.dropFirst(offset).prefix(4))
-            let size = Int(uint32(data, at: offset + 4))
+            let storedSize = uint32(data, at: offset + 4)
+            let size = id == "data" && storedSize == longFormSizeSentinel ? Int(clamping: dataSize ?? UInt64(storedSize)) : Int(storedSize)
             let body = offset + 8
 
             guard body + size <= data.count else {
@@ -162,6 +189,10 @@ public struct RIFFChunks: Equatable, Sendable {
 
     static func uint32(_ data: Data, at offset: Int) -> UInt32 {
         data.dropFirst(offset).prefix(4).reversed().reduce(0) { $0 << 8 | UInt32($1) }
+    }
+
+    static func uint64(_ data: Data, at offset: Int) -> UInt64 {
+        data.dropFirst(offset).prefix(8).reversed().reduce(0) { $0 << 8 | UInt64($1) }
     }
 
     static func uint16(_ data: Data, at offset: Int) -> UInt16 {

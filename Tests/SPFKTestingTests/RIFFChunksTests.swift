@@ -12,6 +12,9 @@ struct RIFFChunksTests {
     @Test func topLevelChunksInFileOrder() throws {
         let riff = try RIFFChunks(contentsOf: resources.tabla_wav)
 
+        #expect(riff.form == "RIFF")
+        #expect(!riff.isLongForm)
+        #expect(riff.longFormSizes == nil)
         #expect(riff.formType == "WAVE")
         #expect(riff.chunks.map(\.id) == ["fmt ", "data", "cue ", "LIST", "JUNK", "r64m", "smpl", "inst", "ID3 ", "LIST"])
         #expect(riff.chunks.compactMap(\.listType) == ["adtl", "INFO"])
@@ -68,9 +71,35 @@ struct RIFFChunksTests {
         #expect(bext.codingHistory == Data("A=PCM,F=44100,W=24,M=stereo,T=libsndfile-1.2.2\r\nA=PCM,F=44100,W=24,M=stereo,T=libsndfile-1.2.2\r\n".utf8))
     }
 
-    @Test func refusesLongFormFilesAndOverruns() throws {
-        let rf64 = Data("RF64".utf8) + Data([0xFF, 0xFF, 0xFF, 0xFF]) + Data("WAVE".utf8)
-        #expect(throws: RIFFChunks.ReadError.unsupportedForm("RF64")) { try RIFFChunks(rf64) }
+    /// `ds64`, `fmt `, a six-byte `data` whose stored size is the sentinel, then an `ID3 ` chunk.
+    @Test(arguments: ["RF64", "BW64"])
+    func longFormDataSizeComesFromDS64(magic: String) throws {
+        func le(_ value: UInt64, _ bytes: Int) -> Data {
+            Data((0 ..< bytes).map { UInt8(truncatingIfNeeded: value >> (8 * UInt64($0))) })
+        }
+
+        let ds64 = Data("ds64".utf8) + le(28, 4) + le(88, 8) + le(6, 8) + le(3, 8) + le(0, 4)
+        let format = Data("fmt ".utf8) + le(16, 4) + le(1, 2) + le(1, 2) + le(48000, 4) + le(96000, 4) + le(2, 2) + le(16, 2)
+        let audio = Data("data".utf8) + Data([0xFF, 0xFF, 0xFF, 0xFF]) + Data([1, 2, 3, 4, 5, 6])
+        let tag = Data("ID3 ".utf8) + le(2, 4) + Data([0xAA, 0xBB])
+        let file = Data(magic.utf8) + Data([0xFF, 0xFF, 0xFF, 0xFF]) + Data("WAVE".utf8) + ds64 + format + audio + tag
+
+        let riff = try RIFFChunks(file)
+
+        #expect(riff.form == magic)
+        #expect(riff.isLongForm)
+        #expect(riff.chunks.map(\.id) == ["ds64", "fmt ", "data", "ID3 "])
+        #expect(riff.first("data")?.payload == Data([1, 2, 3, 4, 5, 6]))
+        #expect(riff.first("ID3 ")?.payload == Data([0xAA, 0xBB]))
+        #expect(riff.longFormSizes?.riffSize == 88)
+        #expect(riff.longFormSizes?.dataSize == 6)
+        #expect(riff.longFormSizes?.sampleCount == 3)
+        #expect(riff.sampleRate == 48000)
+    }
+
+    @Test func refusesMalformedFiles() throws {
+        let noDS64 = Data("RF64".utf8) + Data([0xFF, 0xFF, 0xFF, 0xFF]) + Data("WAVE".utf8) + Data("fmt ".utf8) + Data(count: 32)
+        #expect(throws: RIFFChunks.ReadError.self) { try RIFFChunks(noDS64) }
 
         let overrun = Data("RIFF".utf8) + Data([20, 0, 0, 0]) + Data("WAVE".utf8) + Data("JUNK".utf8) + Data([0x10, 0, 0, 0, 0, 0])
         #expect(throws: RIFFChunks.ReadError.self) { try RIFFChunks(overrun) }
