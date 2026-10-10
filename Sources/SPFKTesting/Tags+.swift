@@ -62,6 +62,11 @@ extension Tag {
     /// write-then-load order, pruning at load, and each product's revisit, relaunch and Clear.
     @Tag public static var searchResults: Self
 
+    /// ShadowTag's artwork column filling in after the table paints: what a playlist read no
+    /// longer carries, the cache-first fill's order and write-back, carrying thumbnails across a
+    /// refresh, and the image store's concurrent thumbnail reads.
+    @Tag public static var thumbnailFill: Self
+
     /// The metadata safety net: every metadata save, checked against readers that share no code
     /// with the writers — what it wrote, the components it left alone, and other apps' data in
     /// the file — plus those readers' own tests.
