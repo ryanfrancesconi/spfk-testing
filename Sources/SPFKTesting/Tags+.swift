@@ -50,6 +50,10 @@ extension Tag {
     /// than a suite list.
     @Tag public static var albumLoad: Self
 
+    /// Showing several sidebar playlists in one table: classifying the selection, the store's
+    /// bounded read and refusal, the shared host's step order, and each product's gates.
+    @Tag public static var combinedSelection: Self
+
     /// Finding the playlists that hold a file and navigating to one: the store's membership query,
     /// the shared command's step order, its dialog, and each product's arrival selection.
     @Tag public static var showInPlaylists: Self
