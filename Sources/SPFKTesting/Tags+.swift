@@ -62,6 +62,10 @@ extension Tag {
     /// write-then-load order, pruning at load, and each product's revisit, relaunch and Clear.
     @Tag public static var searchResults: Self
 
+    /// Field criteria in search: the query language, its parser and resolvers, evaluation over
+    /// each product's field registry, and the shared store search that runs it.
+    @Tag public static var advancedSearch: Self
+
     /// ShadowTag's artwork column filling in after the table paints: what a playlist read no
     /// longer carries, the cache-first fill's order and write-back, carrying thumbnails across a
     /// refresh, and the image store's concurrent thumbnail reads.
