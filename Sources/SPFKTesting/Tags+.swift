@@ -77,4 +77,8 @@ extension Tag {
     @Tag public static var metadataSafetyNet: Self
 
     @Tag public static var automation: Self
+
+    /// Reverse as a pending audio edit: the model and its mirrors, the render, the reversed cache
+    /// and its store, the transport's identity, and ShadowTag's reversed editor view.
+    @Tag public static var reverse: Self
 }
