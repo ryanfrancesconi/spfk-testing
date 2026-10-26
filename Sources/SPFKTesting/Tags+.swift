@@ -76,6 +76,10 @@ extension Tag {
     /// the file — plus those readers' own tests.
     @Tag public static var metadataSafetyNet: Self
 
+    /// Musical key in ShadowTag: parsing and writing each notation, the spelling rule, how a key
+    /// tag is stored, organizing a batch into one notation, and searching across spellings.
+    @Tag public static var musicalKey: Self
+
     @Tag public static var automation: Self
 
     /// Reverse as a pending audio edit: the model and its mirrors, the render, the reversed cache
