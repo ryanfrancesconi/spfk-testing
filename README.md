@@ -84,6 +84,7 @@ baseline.
 | `no metadata.mp3` | No metadata edge case |
 | `xmp.mp3` | XMP metadata |
 | `toc_many_children.mp3` | Complex TOC structure |
+| `foreign_comment_deu.mp3` | ID3v2.3 written by mutagen (Picard's library): a Latin-1 `COMM` in `deu` and a mixed-case `TXXX` description |
 | `no_data_chunk.wav` | Missing data chunk edge case |
 | `ixml.wav` | Full iXML specification |
 | `bext_ixml_external.flac` | BEXT and iXML in FLAC APPLICATION blocks |
