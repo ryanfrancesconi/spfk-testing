@@ -18,4 +18,11 @@ extension TestBundleResources {
     public var foreign_comment_deu_mp3: URL {
         internalResources.resource(named: "foreign_comment_deu.mp3")
     }
+
+    /// ``sine_wma`` rated only by a POPM-style `POPULARIMETER` attribute,
+    /// `rating@example.com|196|0` (196 is 4★ on the POPM scale), with no `WM/SharedUserRating`.
+    /// Written with TagLib: `ASF::Tag::setAttribute("POPULARIMETER", …)` on a copy of `sine.wma`.
+    public var sine_popularimeter_wma: URL {
+        internalResources.resource(named: "sine_popularimeter.wma")
+    }
 }
