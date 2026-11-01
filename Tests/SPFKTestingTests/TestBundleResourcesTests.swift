@@ -144,4 +144,10 @@ struct TestBundleResourcesTests {
         #expect(resources.sharksandwich.pathExtension == "jpg")
         #expect(resources.addAudio.pathExtension == "addAudio")
     }
+
+    @Test func everySurroundFixtureIsInTheBundle() {
+        for url in resources.surroundFixtures + [resources.stereo_eac3_mka] {
+            #expect(FileManager.default.fileExists(atPath: url.path), "\(url.lastPathComponent)")
+        }
+    }
 }
