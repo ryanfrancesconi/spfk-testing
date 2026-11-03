@@ -66,6 +66,10 @@ extension Tag {
     /// each product's field registry, and the shared store search that runs it.
     @Tag public static var advancedSearch: Self
 
+    /// Keyword tools in both products: the shared organize options, the tool-run sequence that
+    /// presents a tool's dialog and resolves its targets, and Detect and Organize Keywords.
+    @Tag public static var keywordTools: Self
+
     /// ShadowTag's artwork column filling in after the table paints: what a playlist read no
     /// longer carries, the cache-first fill's order and write-back, carrying thumbnails across a
     /// refresh, and the image store's concurrent thumbnail reads.
