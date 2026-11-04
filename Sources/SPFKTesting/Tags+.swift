@@ -70,6 +70,10 @@ extension Tag {
     /// presents a tool's dialog and resolves its targets, and Detect and Organize Keywords.
     @Tag public static var keywordTools: Self
 
+    /// CSV export in both products: the shared pipeline's column resolution and ordering, each
+    /// product's column vocabulary, and the persisted options.
+    @Tag public static var csvExport: Self
+
     /// ShadowTag's artwork column filling in after the table paints: what a playlist read no
     /// longer carries, the cache-first fill's order and write-back, carrying thumbnails across a
     /// refresh, and the image store's concurrent thumbnail reads.
