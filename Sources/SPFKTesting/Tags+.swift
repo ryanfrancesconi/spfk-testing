@@ -98,4 +98,8 @@ extension Tag {
     /// user-selection check, the next playable row, trim from the playhead, time display, and
     /// frame stepping.
     @Tag public static var transport: Self
+
+    /// The Help menu in both products: the shared help host, its Help, Feedback and Welcome
+    /// windows, the menu rows, and the launch check that decides when Welcome appears.
+    @Tag public static var help: Self
 }
