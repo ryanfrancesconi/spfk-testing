@@ -20,7 +20,7 @@ let package = Package(
     targets: [
         .target(
             name: "SPFKTesting",
-            dependencies: [],
+            dependencies: ["SPFKBench"],
             resources: [.process("Resources")],
         ),
         .target(
