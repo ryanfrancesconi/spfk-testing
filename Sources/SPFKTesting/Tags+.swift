@@ -93,4 +93,9 @@ extension Tag {
     /// Reverse as a pending audio edit: the model and its mirrors, the render, the reversed cache
     /// and its store, the transport's identity, and ShadowTag's reversed editor view.
     @Tag public static var reverse: Self
+
+    /// Video transport in both products: bounded playback, loop and the end event, the
+    /// user-selection check, the next playable row, trim from the playhead, time display, and
+    /// frame stepping.
+    @Tag public static var transport: Self
 }
