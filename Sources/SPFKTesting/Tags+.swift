@@ -106,4 +106,8 @@ extension Tag {
     /// Paste Attributes in both products: the shared host, options and dialog, and each product's
     /// source and apply.
     @Tag public static var pasteAttributes: Self
+
+    /// Convert Files in both products: the batch converter, the shared host's passes and step order,
+    /// the per-file converters, the failure report, and adding the outputs to an album.
+    @Tag public static var conversion: Self
 }
