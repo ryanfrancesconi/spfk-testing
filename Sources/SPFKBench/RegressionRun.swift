@@ -38,11 +38,14 @@ public struct RegressionRun: Sendable {
 
     /// Times `body`, which returns the count of what it processed, after `warmup` discarded runs.
     /// A throw is recorded as a failed case rather than propagated, so one case cannot hide the rest.
+    ///
+    /// `note` is read once the samples are taken, and is recorded but never compared.
     public mutating func measure<T>(
         _ id: String,
         iterations: Int = 7,
         warmup: Int = 1,
         prepare: () async throws -> T,
+        note: () -> String? = { nil },
         _ body: (T) async throws -> Int
     ) async {
         var count = 0
@@ -52,11 +55,13 @@ public struct RegressionRun: Sendable {
                 count = try await body(input)
             }
 
+            let note = note()
+
             cases.append(RegressionCase(
                 id: id, status: .ok, medianMs: samples.median, minMs: samples.min, maxMs: samples.max,
-                n: samples.values.count, count: count, note: nil
+                n: samples.values.count, count: count, note: note
             ))
-            log(formatted(id, samples) + "  count=\(count)")
+            log(formatted(id, samples) + "  count=\(count)" + (note.map { "  \($0)" } ?? ""))
         } catch {
             fail(id, note: String(describing: error))
         }
