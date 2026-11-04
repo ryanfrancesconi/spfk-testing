@@ -5,22 +5,80 @@ import CoreGraphics
 import Foundation
 import ImageIO
 
-/// A generated H.264 MP4 with no audio track that shows each of a sequence of still images in turn.
+/// A generated H.264 video that shows each of a sequence of still images in turn, silent unless
+/// given a soundtrack.
 ///
 /// Real photos rather than solid colors, so each segment classifies as something distinct.
 public enum StillVideoFixture {
     public enum Error: Swift.Error {
         case unreadableImage(URL)
+        case missingTrack
+        case exportFailed((any Swift.Error)?)
     }
 
     /// Writes the video to a new temporary file; the caller removes it.
     ///
+    /// - Parameter soundtrack: an audio file to carry as the video's audio track, cut to the
+    ///   picture's length. The result is then a `.mov`, its audio copied rather than re-encoded.
     /// - Parameter size: output frame size, both dimensions even for H.264. Each image is
     ///   stretched to fill it.
     public static func make(
         showing images: [URL],
         segmentDuration: TimeInterval,
+        soundtrack: URL? = nil,
         size: CGSize = CGSize(width: 640, height: 360)
+    ) async throws -> URL {
+        let picture = try await makePicture(showing: images, segmentDuration: segmentDuration, size: size)
+
+        guard let soundtrack else { return picture }
+        defer { try? FileManager.default.removeItem(at: picture) }
+
+        return try await combine(picture: picture, soundtrack: soundtrack)
+    }
+
+    private static func combine(picture: URL, soundtrack: URL) async throws -> URL {
+        let pictureAsset = AVURLAsset(url: picture)
+        let soundAsset = AVURLAsset(url: soundtrack)
+
+        guard let videoTrack = try await pictureAsset.loadTracks(withMediaType: .video).first,
+              let audioTrack = try await soundAsset.loadTracks(withMediaType: .audio).first
+        else {
+            throw Error.missingTrack
+        }
+
+        let duration = try await pictureAsset.load(.duration)
+        let range = CMTimeRange(start: .zero, duration: min(duration, try await soundAsset.load(.duration)))
+
+        let composition = AVMutableComposition()
+        try composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)?
+            .insertTimeRange(CMTimeRange(start: .zero, duration: duration), of: videoTrack, at: .zero)
+        try composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)?
+            .insertTimeRange(range, of: audioTrack, at: .zero)
+
+        guard let session = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough) else {
+            throw Error.exportFailed(nil)
+        }
+
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".mov")
+        session.outputURL = url
+        session.outputFileType = .mov
+
+        nonisolated(unsafe) let exporting = session
+        await withCheckedContinuation { continuation in
+            exporting.exportAsynchronously { continuation.resume() }
+        }
+
+        guard session.status == .completed else {
+            throw Error.exportFailed(session.error)
+        }
+
+        return url
+    }
+
+    private static func makePicture(
+        showing images: [URL],
+        segmentDuration: TimeInterval,
+        size: CGSize
     ) async throws -> URL {
         let segments = try images.map(loadImage)
 
