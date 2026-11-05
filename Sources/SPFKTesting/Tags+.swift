@@ -110,4 +110,8 @@ extension Tag {
     /// Convert Files in both products: the batch converter, the shared host's passes and step order,
     /// the per-file converters, the failure report, and adding the outputs to an album.
     @Tag public static var conversion: Self
+
+    /// The XMP tab in both products: the shared view, each product's read, edit and undo, and the
+    /// packet save.
+    @Tag public static var xmp: Self
 }
