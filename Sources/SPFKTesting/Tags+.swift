@@ -122,4 +122,9 @@ extension Tag {
     /// The cache location setting in both products: the location and its resolution, the swap of a
     /// data object's cache stores, and the hardlink-preserving move between roots.
     @Tag public static var cacheLocation: Self
+
+    /// Spot and FCPXML in both products: the media-neutral spot item, the FCPXML writer, the shared
+    /// Spot host and its step order, each product's planner and menu rows, and the transport's
+    /// menu-row button.
+    @Tag public static var spot: Self
 }
