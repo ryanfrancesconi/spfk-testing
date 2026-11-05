@@ -118,4 +118,8 @@ extension Tag {
     /// The XMP tab in both products: the shared view, each product's read, edit and undo, and the
     /// packet save.
     @Tag public static var xmp: Self
+
+    /// The cache location setting in both products: the location and its resolution, the swap of a
+    /// data object's cache stores, and the hardlink-preserving move between roots.
+    @Tag public static var cacheLocation: Self
 }
