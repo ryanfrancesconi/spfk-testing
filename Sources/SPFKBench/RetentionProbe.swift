@@ -82,7 +82,9 @@ public func retention(
 }
 
 /// Dirty + swapped size in MB per region type of this process, from `vmmap --summary`.
+/// Empty where `vmmap` cannot be run.
 public func vmmapRegions() -> [String: Double] {
+    #if os(macOS)
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/vmmap")
     process.arguments = ["--summary", "\(ProcessInfo.processInfo.processIdentifier)"]
@@ -101,6 +103,9 @@ public func vmmapRegions() -> [String: Double] {
     process.waitUntilExit()
 
     return parseVMMapSummary(String(decoding: data, as: UTF8.self))
+    #else
+    return [:]
+    #endif
 }
 
 /// Parses the region table of `vmmap --summary`: name, then virtual, resident, dirty and swapped
