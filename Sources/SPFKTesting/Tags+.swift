@@ -66,6 +66,10 @@ extension Tag {
     /// each product's field registry, and the shared store search that runs it.
     @Tag public static var advancedSearch: Self
 
+    /// Related-word search: the expander's tiers and vocabulary, the fallback's match bands, and
+    /// each product's vocabulary source.
+    @Tag public static var synonyms: Self
+
     /// Keyword tools in both products: the shared organize options, the tool-run sequence that
     /// presents a tool's dialog and resolves its targets, and Detect and Organize Keywords.
     @Tag public static var keywordTools: Self
