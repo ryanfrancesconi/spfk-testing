@@ -127,4 +127,9 @@ extension Tag {
     /// Spot host and its step order, each product's planner and menu rows, and the transport's
     /// menu-row button.
     @Tag public static var spot: Self
+
+    /// A table's in-place filter in both products: the scorer, the base's filter task and its
+    /// re-derive after a mutation, each product's job and mutation sites, and the search field's
+    /// count.
+    @Tag public static var tableFilter: Self
 }
