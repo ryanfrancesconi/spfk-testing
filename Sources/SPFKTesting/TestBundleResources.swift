@@ -615,4 +615,10 @@ extension TestBundleResources {
     public var songbird: URL {
         internalResources.resource(named: "songbird.jpg")
     }
+
+    /// `songbird` at 1024 x 576 with an embedded EXIF thumbnail (160 x 90), as camera JPEGs carry.
+    /// ImageIO's `...FromImageIfAbsent` returns that thumbnail whatever size is asked for.
+    public var songbird_exif_thumbnail: URL {
+        internalResources.resource(named: "songbird_exif_thumbnail.jpg")
+    }
 }
