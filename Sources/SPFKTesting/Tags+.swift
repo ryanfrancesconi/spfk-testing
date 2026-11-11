@@ -78,6 +78,11 @@ extension Tag {
     /// product's column vocabulary, and the persisted options.
     @Tag public static var csvExport: Self
 
+    /// Spreadsheet import in both products: the readers, the engine's matching, values and
+    /// deferred writes, each product's vocabulary and profiles, the export round trip, the shared
+    /// apply, and the remembered settings.
+    @Tag public static var spreadsheetImport: Self
+
     /// ShadowTag's artwork column filling in after the table paints: what a playlist read no
     /// longer carries, the cache-first fill's order and write-back, carrying thumbnails across a
     /// refresh, and the image store's concurrent thumbnail reads.
