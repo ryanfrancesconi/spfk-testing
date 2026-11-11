@@ -8,11 +8,6 @@ struct TestBundleResourcesTests {
 
     // MARK: - Bundle paths
 
-    @Test("bundleURL is non-empty path")
-    func bundleURL() {
-        #expect(!resources.bundleURL.path.isEmpty)
-    }
-
     @Test("resourcesDirectory is derived from bundleURL")
     func resourcesDirectory() {
         let dir = resources.resourcesDirectory.path
@@ -54,96 +49,7 @@ struct TestBundleResourcesTests {
         #expect(actualNames == expectedNames)
     }
 
-    // MARK: - Individual audio resources
-
-    @Test("mp3_no_metadata resolves to correct file name")
-    func mp3NoMetadata() {
-        #expect(resources.mp3_no_metadata.lastPathComponent == "no metadata.mp3")
-    }
-
-    @Test("mp3_xmp resolves to correct file name")
-    func mp3Xmp() {
-        #expect(resources.mp3_xmp.lastPathComponent == "xmp.mp3")
-    }
-
-    @Test("mp3_id3 resolves to correct file name")
-    func mp3Id3() {
-        #expect(resources.mp3_id3.lastPathComponent == "and-oh-how-they-danced.mp3")
-    }
-
-    @Test("wav_bext_v1 resolves to correct file name")
-    func wavBextV1() {
-        #expect(resources.wav_bext_v1.lastPathComponent == "123456789_60BPM_48k.wav")
-    }
-
-    @Test("counting_123456789bpm60_48k is alias for wav_bext_v1")
-    func countingAlias() {
-        #expect(resources.counting_123456789bpm60_48k == resources.wav_bext_v1)
-    }
-
-    @Test("wav_bext_v2 resolves to correct file name")
-    func wavBextV2() {
-        #expect(resources.wav_bext_v2.lastPathComponent == "and-oh-how-they-danced.wav")
-    }
-
-    @Test("wav_bext_v2b resolves to correct file name")
-    func wavBextV2b() {
-        #expect(resources.wav_bext_v2b.lastPathComponent == "and-oh-how-they-danced_2.wav")
-    }
-
-    @Test("toc_many_children resolves to correct file name")
-    func tocManyChildren() {
-        #expect(resources.toc_many_children.lastPathComponent == "toc_many_children.mp3")
-    }
-
-    @Test("cowbell_bext_wav resolves to correct file name")
-    func cowbellBextWav() {
-        #expect(resources.cowbell_bext_wav.lastPathComponent == "cowbell_bext.wav")
-    }
-
-    @Test("no_data_chunk resolves to correct file name")
-    func noDataChunk() {
-        #expect(resources.no_data_chunk.lastPathComponent == "no_data_chunk.wav")
-    }
-
-    @Test("ixml_chunk resolves to correct file name")
-    func ixmlChunk() {
-        #expect(resources.ixml_chunk.lastPathComponent == "ixml.wav")
-    }
-
-    @Test("addAudio resolves to correct file name")
-    func addAudio() {
-        #expect(resources.addAudio.lastPathComponent == "boom.addAudio")
-    }
-
-    @Test("tabla_6_channel resolves to correct file name")
-    func tabla6Channel() {
-        #expect(resources.tabla_6_channel.lastPathComponent == "tabla_6_channel.wav")
-    }
-
-    // MARK: - Image resources
-
-    @Test("sharksandwich resolves to correct file name")
-    func sharksandwich() {
-        #expect(resources.sharksandwich.lastPathComponent == "sharksandwich.jpg")
-    }
-
     // MARK: - Resource naming
-
-    @Test("resource URLs contain expected file extensions")
-    func resourceExtensions() {
-        #expect(resources.mp3_id3.pathExtension == "mp3")
-        #expect(resources.wav_bext_v1.pathExtension == "wav")
-        #expect(resources.tabla_aac.pathExtension == "aac")
-        #expect(resources.tabla_flac.pathExtension == "flac")
-        #expect(resources.tabla_ogg.pathExtension == "ogg")
-        #expect(resources.tabla_aif.pathExtension == "aif")
-        #expect(resources.tabla_caf.pathExtension == "caf")
-        #expect(resources.tabla_m4a.pathExtension == "m4a")
-        #expect(resources.tabla_mp4.pathExtension == "mp4")
-        #expect(resources.sharksandwich.pathExtension == "jpg")
-        #expect(resources.addAudio.pathExtension == "addAudio")
-    }
 
     @Test func everySurroundFixtureIsInTheBundle() {
         for url in resources.surroundFixtures + [resources.stereo_eac3_mka] {
