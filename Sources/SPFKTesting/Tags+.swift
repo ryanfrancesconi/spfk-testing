@@ -137,4 +137,9 @@ extension Tag {
     /// re-derive after a mutation, each product's job and mutation sites, and the search field's
     /// count.
     @Tag public static var tableFilter: Self
+
+    /// The folder scan behind a drop or folder import in both products: the stoppable walk, the
+    /// shared candidate list (exclude, order, cap), each product's parser, the scan's progress,
+    /// and the library planner.
+    @Tag public static var importScan: Self
 }
