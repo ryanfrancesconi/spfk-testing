@@ -5,7 +5,7 @@ import Foundation
 /// A `UserDefaults` whose plist lives in its own temporary directory, deleted when it is released.
 ///
 /// A named suite writes to `~/Library/Preferences`, and `removePersistentDomain` empties it without
-/// removing the file — cfprefsd rewrites an empty plist asynchronously even after a delete. A suite
+/// removing the file - cfprefsd rewrites an empty plist asynchronously even after a delete. A suite
 /// named by an absolute path writes there instead, creating the directory on first write, and a
 /// deleted directory stays deleted.
 public final class TemporaryDefaults: UserDefaults {

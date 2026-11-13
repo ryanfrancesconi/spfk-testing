@@ -135,7 +135,7 @@ extension TestBundleResources {
     ///       -metadata title="SPFK Tabla Matroska" -metadata artist="Spongefork" tabla.mka
     ///
     /// The audio fixture for Matroska work, because **`sample.mkv`'s audio track is digital
-    /// silence** (-91 dB, verified with `ffmpeg -af volumedetect`) — it exists to make track counts
+    /// silence** (-91 dB, verified with `ffmpeg -af volumedetect`) - it exists to make track counts
     /// testable, not signal. A decoder tested only against that passes while producing nothing but
     /// zeros. This carries real signal (-0.1 dB peak) and has an exact reference in ``tabla_m4a``,
     /// which AVFoundation opens normally, so decoded output can be compared rather than merely
@@ -155,7 +155,7 @@ extension TestBundleResources {
     ///
     /// **The absence of a video track is the point.** A `.mka` is `org.matroska.mka`, which conforms
     /// to `.audio` and not `.movie`, so anything that lists a file's audio tracks behind a video
-    /// test skips it — the shape ``dualaudio_m4a`` shares.
+    /// test skips it - the shape ``dualaudio_m4a`` shares.
     ///
     /// Same tones as ``sample_dualaudio_mkv``: 440 Hz and 880 Hz, mono, 44.1 kHz, AAC, so a test
     /// asserts *which* track it decoded. Measured after the AAC round trip: 442/886 Hz by zero
@@ -164,7 +164,7 @@ extension TestBundleResources {
         internalResources.resource(named: "dualaudio.mka")
     }
 
-    /// The AVFoundation counterpart to ``dualaudio_mka`` — same two tones, same languages, in an
+    /// The AVFoundation counterpart to ``dualaudio_mka`` - same two tones, same languages, in an
     /// MP4 audio container that `AVAudioFile(forReading:)` opens and reads the first track of.
     ///
     /// **No track names**, unlike every other fixture in this family: ffmpeg's MP4 muxers write no
@@ -182,7 +182,7 @@ extension TestBundleResources {
     ///     ffmpeg -i tabla.wav -c:a flac \
     ///       -metadata title="SPFK Tabla Matroska FLAC" -metadata artist="Spongefork" tabla_flac.mka
     ///
-    /// **Sample-exact against ``tabla_wav``** — 210900 frames, no encoder priming — where
+    /// **Sample-exact against ``tabla_wav``** - 210900 frames, no encoder priming - where
     /// ``tabla_mka`` is 2112 frames long and shifted later by AAC's. A decoder can be held to the
     /// samples here rather than to a correlation.
     public var tabla_flac_mka: URL {
@@ -201,7 +201,7 @@ extension TestBundleResources {
     }
 
     /// ``tabla_wav`` in Matroska PCM with blocks of 66,666 frames, where ``tabla_pcm_mka``'s are
-    /// 4,096 — longer than one decode buffer:
+    /// 4,096 - longer than one decode buffer:
     ///
     ///     ffmpeg -max_size 400000 -i tabla.wav -c:a copy \
     ///       -metadata title="SPFK Tabla Matroska PCM long blocks" -metadata artist="Spongefork" \
@@ -415,7 +415,7 @@ extension TestBundleResources {
     /// difference a test observes is the *container*, which is the only thing Matroska changes.
     /// Carries `title` and `artist` so a read can be asserted without writing first.
     ///
-    /// **AVFoundation cannot open this file** — Matroska is absent from
+    /// **AVFoundation cannot open this file** - Matroska is absent from
     /// `AVURLAsset.audiovisualTypes()`. That is the point of the fixture: it exercises the
     /// TagLib-backed metadata path for a container the AV stack refuses, so anything reaching for
     /// `AVAsset` fails loudly here instead of silently working via a format that happens to be
@@ -430,12 +430,12 @@ extension TestBundleResources {
     ///       -metadata title="SPFK Sample WebM" -metadata artist="Spongefork" sample.webm
     ///
     /// A re-encode rather than the `-c copy` used for ``sample_mkv``, because WebM admits neither
-    /// H.264 nor AAC — so this is VP9 video and Opus audio (resampled to Opus's native 48 kHz),
+    /// H.264 nor AAC - so this is VP9 video and Opus audio (resampled to Opus's native 48 kHz),
     /// still 160x120 and 2 seconds with a keyframe every 15 frames.
     ///
     /// Exists to prove the claim that one Matroska parser covers both containers: WebM is a
     /// Matroska profile, and the only thing that should differ is the EBML `DocType`. It is also
-    /// the fixture that covers an **absent `CodecPrivate`** — VP9 needs no out-of-band setup data
+    /// the fixture that covers an **absent `CodecPrivate`** - VP9 needs no out-of-band setup data
     /// and carries none, where H.264 carries an `avcC`, so a code path that assumes every video
     /// track has one fails here and only here.
     public var sample_webm: URL {
@@ -460,7 +460,7 @@ extension TestBundleResources {
     /// one at the head of the file names a *second* `SeekHead` rather than naming `Cues` directly,
     /// and that second one names `Cues`.
     ///
-    /// Byte-for-byte identical to ``sample_mkv`` everywhere else — the replacement `SeekHead` is
+    /// Byte-for-byte identical to ``sample_mkv`` everywhere else - the replacement `SeekHead` is
     /// built inside the existing `Void` padding, so no offset moves and the file is the same
     /// length. ffmpeg writes the flat form, which is why ``sample_mkv`` alone cannot cover this.
     ///
@@ -471,7 +471,7 @@ extension TestBundleResources {
         internalResources.resource(named: "sample-nested-seekhead.mkv")
     }
 
-    /// ``sample_mkv`` with its `Cues` rewritten so video and audio cue points interleave — each cue
+    /// ``sample_mkv`` with its `Cues` rewritten so video and audio cue points interleave - each cue
     /// point names one track, and the audio ones sit between the video keyframes.
     ///
     /// The shape a muxer that indexes every track produces. It matters because looking a cue point
@@ -533,7 +533,7 @@ extension TestBundleResources {
     ///       -metadata:s:s:0 language=eng sample-dualaudio.mkv
     ///
     /// **The two tracks are 440 Hz and 880 Hz**, so a test asserts *which* track it decoded rather
-    /// than only that two differ — measure the dominant frequency or count zero crossings, whose
+    /// than only that two differ - measure the dominant frequency or count zero crossings, whose
     /// ratio is exactly 2. Measured after the AAC round trip: 440/879 Hz, peaking 0.53 and 0.69, so
     /// neither clips.
     ///
@@ -547,7 +547,7 @@ extension TestBundleResources {
         internalResources.resource(named: "sample-dualaudio.mkv")
     }
 
-    /// The AVFoundation counterpart to ``sample_dualaudio_mkv`` — same video, same two tone tracks,
+    /// The AVFoundation counterpart to ``sample_dualaudio_mkv`` - same video, same two tone tracks,
     /// same names and languages, in a QuickTime container and without the subtitle track.
     ///
     /// Both containers are needed because audio track selection is not a Matroska feature: MP4 and
@@ -557,7 +557,7 @@ extension TestBundleResources {
     /// Verified against AVFoundation rather than assumed: the tracks come back with
     /// `trackID` 2 and 3, `languageCode` `eng`/`jpn`, and the ffmpeg `title` reaching
     /// `commonMetadata` as `.commonKeyTitle` (stored as `udta/name`). An **audible
-    /// `AVMediaSelectionGroup` is present** with both options, correctly named and localed — so
+    /// `AVMediaSelectionGroup` is present** with both options, correctly named and localed - so
     /// this fixture exercises the media-selection route as well as per-track enabling. Whether
     /// every real-world multi-track movie declares such a group is not established here.
     public var sample_dualaudio_mov: URL {
@@ -569,7 +569,7 @@ extension TestBundleResources {
     ///     ffmpeg -y -i sample.mov -f lavfi -t 2 -i "sine=frequency=440:sample_rate=48000" \
     ///       -map 0:v -map 1:a -c:v mpeg2video -b:v 300k -c:a pcm_s16le -shortest sample.mxf
     ///
-    /// **Nothing opens this without `ProVideoFormats.register()`** — MXF is absent from
+    /// **Nothing opens this without `ProVideoFormats.register()`** - MXF is absent from
     /// `AVURLAsset.audiovisualTypes()` until the process opts into macOS's professional video
     /// workflow plug-ins, and those ship in a separate Apple download. That is what the fixture is
     /// for, so any test using it must be gated on `ProVideoFormats.isAvailable`.
@@ -580,12 +580,12 @@ extension TestBundleResources {
     /// distinct frames, so a thumbnail-at-timestamp test can still assert *which* frame it got.
     ///
     /// **The audio is a tone rather than ``sample_mov``'s own track**, because that track is
-    /// digital silence — the trap ``tabla_mka`` exists for, and a worse one here: a wrong ASBD
+    /// digital silence - the trap ``tabla_mka`` exists for, and a worse one here: a wrong ASBD
     /// decodes silence while reporting success at every step, so against a silent fixture a
     /// decode test cannot tell the two apart. Measured through `AVAssetReader` as deinterleaved
     /// 32-bit float: 96000 frames, 48 kHz mono, peak 0.125, 439.5 Hz by zero crossing.
     ///
-    /// MPEG-2 rather than DNxHD deliberately — a DNxHD fixture is 7.5 MB, and the format reader is
+    /// MPEG-2 rather than DNxHD deliberately - a DNxHD fixture is 7.5 MB, and the format reader is
     /// the part under test either way. At 285 KB this is still the largest fixture here, almost all
     /// of it the uncompressed PCM.
     public var sample_mxf: URL {

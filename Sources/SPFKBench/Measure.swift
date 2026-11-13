@@ -16,7 +16,7 @@ public func measure(
     try await measure(label, iterations: iterations, warmup: warmup, prepare: {}, { _ in try await body() })
 }
 
-/// As above, with per-iteration setup that is **not** timed — for anything whose second run would
+/// As above, with per-iteration setup that is **not** timed - for anything whose second run would
 /// measure something other than its first: a store already loaded, a cache already warm.
 @discardableResult
 public func measure<T>(

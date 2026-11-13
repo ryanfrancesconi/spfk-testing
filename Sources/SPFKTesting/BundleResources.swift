@@ -15,7 +15,7 @@ public final class BundleResources: Sendable {
     /// platform. Falls back to the bundle URL for a URL that names no bundle.
     ///
     /// `absoluteURL` is load-bearing: `Bundle.resourceURL` carries a `baseURL`, and `URL`'s `==`
-    /// compares the relative string and base rather than the resolved path — so a relative form
+    /// compares the relative string and base rather than the resolved path - so a relative form
     /// resolves to the right file while comparing unequal to every absolute URL of it.
     public var resourcesDirectory: URL {
         (Bundle(url: bundleURL)?.resourceURL ?? bundleURL).absoluteURL

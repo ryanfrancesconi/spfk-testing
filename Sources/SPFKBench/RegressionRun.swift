@@ -19,7 +19,7 @@ public struct RegressionCase: Codable, Sendable, Equatable {
     public let maxMs: Double?
     public let n: Int?
 
-    /// What the case processed — rows read, results returned. A case that got faster by doing
+    /// What the case processed - rows read, results returned. A case that got faster by doing
     /// less work shows up here rather than as an improvement.
     public let count: Int?
 
@@ -78,12 +78,12 @@ public struct RegressionRun: Sendable {
 
     public mutating func skip(_ id: String, note: String) {
         cases.append(RegressionCase(id: id, status: .skipped, medianMs: nil, minMs: nil, maxMs: nil, n: nil, count: nil, note: note))
-        log("  \(id): skipped — \(note)")
+        log("  \(id): skipped - \(note)")
     }
 
     public mutating func fail(_ id: String, note: String) {
         cases.append(RegressionCase(id: id, status: .failed, medianMs: nil, minMs: nil, maxMs: nil, n: nil, count: nil, note: note))
-        log("  \(id): FAILED — \(note)")
+        log("  \(id): FAILED - \(note)")
     }
 
     // MARK: - Output

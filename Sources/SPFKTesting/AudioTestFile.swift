@@ -7,7 +7,7 @@ import Foundation
 public enum AudioTestFile {
     /// Create a temporary WAV file from a sequence of (frameCount, amplitude) segments.
     ///
-    /// Each tuple writes `frameCount` frames at the given constant `amplitude` (linear, 0–1).
+    /// Each tuple writes `frameCount` frames at the given constant `amplitude` (linear, 0-1).
     /// Pass `0.0` for silence. The file is written to `NSTemporaryDirectory()` and the caller
     /// is responsible for deleting it.
     ///
