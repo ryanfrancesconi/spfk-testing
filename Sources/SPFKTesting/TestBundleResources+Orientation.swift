@@ -21,3 +21,16 @@ extension TestBundleResources {
         internalResources.resource(named: "orientation-pattern.mp4")
     }
 }
+
+/// `songbird` at 400×226, stored unrotated with `irot 1`, which ImageIO reads as orientation 8:
+///
+///     ffmpeg -i songbird.jpg -vf scale=400:-2 small.png
+///     avifenc -q 70 --irot 1 small.png orientation-8.avif
+///
+/// ImageIO reads an AVIF's orientation but cannot write one, so this is the only way to get a
+/// rotated AVIF.
+extension TestBundleResources {
+    public var orientation_8_avif: URL {
+        internalResources.resource(named: "orientation-8.avif")
+    }
+}
