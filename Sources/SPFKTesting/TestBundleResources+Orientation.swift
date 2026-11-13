@@ -34,3 +34,26 @@ extension TestBundleResources {
         internalResources.resource(named: "orientation-8.avif")
     }
 }
+
+// MARK: - Video re-encoding
+
+/// One second of `testsrc2` at 640×360, 24 fps, HEVC 10-bit HLG in BT.2020, with luma peaking above
+/// HLG's SDR reference white:
+///
+///     ffmpeg -f lavfi -i testsrc2=size=640x360:rate=24:duration=1 -vf format=yuv420p10le -c:v libx265 \
+///       -x265-params "colorprim=bt2020:transfer=arib-std-b67:colormatrix=bt2020nc" -tag:v hvc1 \
+///       -color_primaries bt2020 -color_trc arib-std-b67 -colorspace bt2020nc hlg-pattern.mov
+///
+/// Six frames of the same pattern at 160×120 in ProRes 422:
+///
+///     ffmpeg -f lavfi -i testsrc2=size=160x120:rate=24:duration=0.25 -c:v prores_ks -profile:v 2 \
+///       -pix_fmt yuv422p10le prores-pattern.mov
+extension TestBundleResources {
+    public var hlg_pattern_mov: URL {
+        internalResources.resource(named: "hlg-pattern.mov")
+    }
+
+    public var prores_pattern_mov: URL {
+        internalResources.resource(named: "prores-pattern.mov")
+    }
+}
