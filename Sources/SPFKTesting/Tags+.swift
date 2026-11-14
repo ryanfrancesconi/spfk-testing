@@ -54,6 +54,10 @@ extension Tag {
     /// bounded read and refusal, the shared host's step order, and each product's gates.
     @Tag public static var combinedSelection: Self
 
+    /// Smart playlists and albums: the catalog, the evaluator and its indexed path, the store's
+    /// smart invariants, restore and the seeded group, the live refresh, and each product's gates.
+    @Tag public static var smartCollections: Self
+
     /// Finding the playlists that hold a file and navigating to one: the store's membership query,
     /// the shared command's step order, its dialog, and each product's arrival selection.
     @Tag public static var showInPlaylists: Self
