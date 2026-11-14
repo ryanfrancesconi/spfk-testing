@@ -146,4 +146,8 @@ extension Tag {
     /// shared candidate list (exclude, order, cap), each product's parser, the scan's progress,
     /// and the library planner.
     @Tag public static var importScan: Self
+
+    /// The folders a library was imported from, in both products: the stored roots, the files the
+    /// user declined, each playlist's derivation state, and the sweep of roots whose owner is gone.
+    @Tag public static var sourceFolders: Self
 }
