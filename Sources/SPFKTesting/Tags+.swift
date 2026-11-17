@@ -120,6 +120,10 @@ extension Tag {
     /// source and apply.
     @Tag public static var pasteAttributes: Self
 
+    /// Review Unsaved Edits in both products: the keyed tag diffs, the shared checklist outline,
+    /// the shared host's step order, and each product's sections, discard and undo.
+    @Tag public static var unsavedEdits: Self
+
     /// Convert Files in both products: the batch converter, the shared host's passes and step order,
     /// the per-file converters, the failure report, and adding the outputs to an album.
     @Tag public static var conversion: Self
