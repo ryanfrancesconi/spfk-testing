@@ -158,4 +158,8 @@ extension Tag {
     /// The folders a library was imported from, in both products: the stored roots, the files the
     /// user declined, each playlist's derivation state, and the sweep of roots whose owner is gone.
     @Tag public static var sourceFolders: Self
+
+    /// XMP sidecars: the packet write, finding and carrying a file's sidecar, reading and writing a
+    /// RAW's metadata through it, and observing it.
+    @Tag public static var xmpSidecar: Self
 }
