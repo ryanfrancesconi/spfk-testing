@@ -155,6 +155,10 @@ extension Tag {
     /// decoding, and the Adjust tab's develop-settings paths.
     @Tag public static var rawDevelop: Self
 
+    /// Capture modes in TorchTag: the reader, the stored field and its sort, the re-read after Save,
+    /// and the badges.
+    @Tag public static var captureModes: Self
+
     /// The folders a library was imported from, in both products: the stored roots, the files the
     /// user declined, each playlist's derivation state, and the sweep of roots whose owner is gone.
     @Tag public static var sourceFolders: Self
