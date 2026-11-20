@@ -151,6 +151,10 @@ extension Tag {
     /// and the library planner.
     @Tag public static var importScan: Self
 
+    /// RAW develop settings in TorchTag: the develop and its mapping, the saved develop and its
+    /// decoding, and the Adjust tab's develop-settings paths.
+    @Tag public static var rawDevelop: Self
+
     /// The folders a library was imported from, in both products: the stored roots, the files the
     /// user declined, each playlist's derivation state, and the sweep of roots whose owner is gone.
     @Tag public static var sourceFolders: Self
