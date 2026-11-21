@@ -166,4 +166,8 @@ extension Tag {
     /// XMP sidecars: the packet write, finding and carrying a file's sidecar, reading and writing a
     /// RAW's metadata through it, and observing it.
     @Tag public static var xmpSidecar: Self
+
+    /// The assistant tools in either product: what they read and write, the host's hydration and
+    /// single undo step, the customer's socket and switch, and the bridge's launch.
+    @Tag public static var assistant: Self
 }
