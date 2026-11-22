@@ -159,6 +159,10 @@ extension Tag {
     /// and the badges.
     @Tag public static var captureModes: Self
 
+    /// Comparing photos side by side in TorchTag's preview: the aspect layout, the comparison view, its
+    /// synced zoom and its decodes, and the pinch geometry both previews share.
+    @Tag public static var compareGrid: Self
+
     /// The folders a library was imported from, in both products: the stored roots, the files the
     /// user declined, each playlist's derivation state, and the sweep of roots whose owner is gone.
     @Tag public static var sourceFolders: Self
