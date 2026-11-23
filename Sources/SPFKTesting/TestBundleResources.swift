@@ -610,6 +610,44 @@ extension TestBundleResources {
         internalResources.resource(named: "sharksandwich.webp")
     }
 
+    // Synthetic 64 x 64 WebPs, one per RIFF layout. The EXIF carries IFD0 `Make`
+    // `SPFKTestFixture`, `ImageDescription`, `Copyright` and `Artist`, an ExifIFD and a GPS IFD.
+
+    /// Simple format: a lone `VP8 ` chunk.
+    public var webp_simple: URL {
+        internalResources.resource(named: "webp-simple.webp")
+    }
+
+    /// Simple format: a lone `VP8L` chunk whose header sets `alpha_is_used`.
+    public var webp_lossless_alpha: URL {
+        internalResources.resource(named: "webp-lossless-alpha.webp")
+    }
+
+    /// `VP8X ALPH VP8`.
+    public var webp_alpha: URL {
+        internalResources.resource(named: "webp-alpha.webp")
+    }
+
+    /// `VP8X VP8 EXIF XMP`, EXIF little-endian; the XMP holds a title, keywords, rating and label.
+    public var webp_exif_xmp: URL {
+        internalResources.resource(named: "webp-exif-xmp.webp")
+    }
+
+    /// `VP8X ICCP VP8 EXIF`, EXIF big-endian, no XMP.
+    public var webp_iccp_exif_mm: URL {
+        internalResources.resource(named: "webp-iccp-exif-mm.webp")
+    }
+
+    /// `VP8X ANIM ANMF ANMF`, two frames.
+    public var webp_animated: URL {
+        internalResources.resource(named: "webp-animated.webp")
+    }
+
+    /// `VP8X ALPH VP8` followed by an unknown `SPFK` chunk with an odd payload and its pad byte.
+    public var webp_unknown_chunk: URL {
+        internalResources.resource(named: "webp-unknown-chunk.webp")
+    }
+
     /// A real photograph (yellow warbler on a branch) with an unambiguous subject,
     /// for testing ML image classification against genuine framework output.
     public var songbird: URL {
