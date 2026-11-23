@@ -132,6 +132,10 @@ extension Tag {
     /// Convert Files' naming.
     @Tag public static var nameTemplate: Self
 
+    /// Renaming and moving files from a template: companions, the move plan, the primitive, the
+    /// follow step, and the dialog.
+    @Tag public static var renameOrganize: Self
+
     /// The XMP tab in both products: the shared view, each product's read, edit and undo, and the
     /// packet save.
     @Tag public static var xmp: Self
