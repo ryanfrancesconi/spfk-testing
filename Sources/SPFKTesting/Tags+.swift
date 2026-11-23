@@ -128,6 +128,10 @@ extension Tag {
     /// the per-file converters, the failure report, and adding the outputs to an album.
     @Tag public static var conversion: Self
 
+    /// Naming files from a template: the grammar, the capture date, the token vocabularies, and
+    /// Convert Files' naming.
+    @Tag public static var nameTemplate: Self
+
     /// The XMP tab in both products: the shared view, each product's read, edit and undo, and the
     /// packet save.
     @Tag public static var xmp: Self
