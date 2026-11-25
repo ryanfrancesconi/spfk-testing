@@ -44,10 +44,8 @@ extension Tag {
 
     /// Opening a playlist: what a first paint costs, what fills in behind it, and everything that
     /// has to wait for or re-run after that fill-in - the store's shell read and hydration, the
-    /// host's step order, and the table's application of a batch.
-    ///
-    /// Spans the store, the shared host and both products' tables, which is why it is a tag rather
-    /// than a suite list.
+    /// host's step order, and the table's application of a batch, across the store, the shared host
+    /// and both products' tables.
     @Tag public static var albumLoad: Self
 
     /// Showing several sidebar playlists in one table: classifying the selection, the store's
